@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cheque AI Test Bench</title>
+  <style>
+    :root {
+      --bg: #f5efe3;
+      --panel: rgba(255, 252, 246, 0.86);
+      --ink: #2c2117;
+      --muted: #6e5d4c;
+      --accent: #8d1f3f;
+      --accent-2: #0d5d56;
+      --line: rgba(54, 39, 24, 0.12);
+      --shadow: 0 18px 48px rgba(62, 35, 16, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Georgia, "Palatino Linotype", serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(141, 31, 63, 0.16), transparent 28%),
+        radial-gradient(circle at top right, rgba(13, 93, 86, 0.12), transparent 25%),
+        linear-gradient(180deg, #f8f3e9 0%, #efe5d2 100%);
+      min-height: 100vh;
+    }
+
+    .shell {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 32px 20px 56px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 18px;
+      align-items: stretch;
+      margin-bottom: 22px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-main {
+      padding: 28px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(141, 31, 63, 0.09);
+      color: var(--accent);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 16px 0 12px;
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 0.95;
+      font-weight: 700;
+    }
+
+    .lede {
+      color: var(--muted);
+      max-width: 62ch;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    .hero-side {
+      padding: 24px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .metric {
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.54);
+      border: 1px solid var(--line);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 28px;
+      color: var(--accent-2);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .panel {
+      padding: 22px;
+    }
+
+    .panel h2 {
+      margin: 0 0 12px;
+      font-size: 22px;
+    }
+
+    .sub {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .samples {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .sample-btn, button {
+      border: 0;
+      cursor: pointer;
+      border-radius: 16px;
+      font: inherit;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+    }
+
+    .sample-btn {
+      width: 100%;
+      text-align: left;
+      padding: 14px 16px;
+      background: linear-gradient(135deg, rgba(141, 31, 63, 0.9), rgba(199, 93, 66, 0.92));
+      color: #fffaf4;
+      box-shadow: 0 12px 24px rgba(141, 31, 63, 0.18);
+    }
+
+    .sample-btn small {
+      display: block;
+      opacity: 0.82;
+      margin-top: 6px;
+      font-size: 12px;
+    }
+
+    .sample-btn:hover, button:hover {
+      transform: translateY(-1px);
+    }
+
+    form {
+      display: grid;
+      gap: 12px;
+    }
+
+    label {
+      font-size: 13px;
+      color: var(--muted);
+      display: grid;
+      gap: 6px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.88);
+      font: inherit;
+      color: var(--ink);
+    }
+
+    .primary {
+      padding: 14px 16px;
+      background: linear-gradient(135deg, var(--accent-2), #2b8475);
+      color: white;
+      box-shadow: 0 12px 24px rgba(13, 93, 86, 0.16);
+    }
+
+    .secondary {
+      padding: 14px 16px;
+      background: #fff8ef;
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+
+    .status {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.56);
+      border: 1px dashed rgba(54, 39, 24, 0.2);
+      color: var(--muted);
+      min-height: 58px;
+    }
+
+    .results {
+      display: grid;
+      gap: 18px;
+    }
+
+    .result-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .pill {
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.62);
+    }
+
+    .pill span {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .pill strong {
+      font-size: 20px;
+    }
+
+    .decision-approve { color: #0b7c57; }
+    .decision-reject { color: #9f1d35; }
+    .decision-flag { color: #946000; }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 18px;
+    }
+
+    .image-box {
+      background: rgba(255,255,255,0.62);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 14px;
+      min-height: 260px;
+    }
+
+    .image-box img {
+      width: 100%;
+      max-height: 340px;
+      object-fit: contain;
+      border-radius: 12px;
+      display: none;
+      background: #fff;
+    }
+
+    .kv {
+      margin: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .kv div {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(54, 39, 24, 0.08);
+    }
+
+    .kv dt {
+      color: var(--muted);
+    }
+
+    .kv dd {
+      margin: 0;
+      font-weight: 700;
+      text-align: right;
+    }
+
+    @media (max-width: 980px) {
+      .hero, .grid, .preview-grid, .result-strip {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <section class="hero">
+      <div class="card hero-main">
+        <div class="eyebrow">Agentic Cheque Testing</div>
+        <h1>Cheque AI Test Bench</h1>
+        <p class="lede">
+          This dashboard runs the full cheque pipeline: image lookup, field extraction, signature verification,
+          fraud scoring, and the final RL-agent decision. Use the preset samples from <code>e:\cheque</code>,
+          enter custom file paths, or upload your own files.
+        </p>
+      </div>
+      <div class="card hero-side">
+        <div class="metric">
+          <strong id="tested-flag">No</strong>
+          Agent tested this cheque
+        </div>
+        <div class="metric">
+          <strong id="current-action">-</strong>
+          Final model action
+        </div>
+        <div class="metric">
+          <strong id="current-reward">0.00</strong>
+          Reward from environment
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card panel">
+        <h2>Run Analysis</h2>
+        <div class="sub">One-click presets using your provided cheque images.</div>
+        <div id="samples" class="samples"></div>
+
+        <div class="sub">Analyze by server-side file path.</div>
+        <form id="path-form">
+          <label>
+            Difficulty
+            <select name="difficulty">
+              <option value="easy">easy</option>
+              <option value="medium" selected>medium</option>
+              <option value="hard">hard</option>
+            </select>
+          </label>
+          <label>
+            Cheque image path
+            <input type="text" name="image_path" value="e:\\cheque\\cheque1.jpg" />
+          </label>
+          <label>
+            Signature image path
+            <input type="text" name="signature_path" value="e:\\cheque\\cheque1_signature.jpg" />
+          </label>
+          <button class="primary" type="submit">Analyze This Cheque</button>
+        </form>
+
+        <div class="sub" style="margin-top:18px;">Upload files from the browser.</div>
+        <form id="upload-form" enctype="multipart/form-data">
+          <label>
+            Difficulty
+            <select name="difficulty">
+              <option value="easy">easy</option>
+              <option value="medium" selected>medium</option>
+              <option value="hard">hard</option>
+            </select>
+          </label>
+          <label>
+            Cheque image
+            <input type="file" name="cheque_image" accept="image/*" required />
+          </label>
+          <label>
+            Signature image
+            <input type="file" name="signature_image" accept="image/*" />
+          </label>
+          <button class="secondary" type="submit">Upload And Analyze</button>
+        </form>
+
+        <div id="status" class="status">Waiting for a cheque test run.</div>
+      </div>
+
+      <div class="card panel results">
+        <h2>Analysis Result</h2>
+        <div class="result-strip">
+          <div class="pill"><span>Signature Score</span><strong id="signature-score">-</strong></div>
+          <div class="pill"><span>Fraud Score</span><strong id="fraud-score">-</strong></div>
+          <div class="pill"><span>Account Valid</span><strong id="account-valid">-</strong></div>
+          <div class="pill"><span>Signature Valid</span><strong id="signature-valid">-</strong></div>
+        </div>
+
+        <div class="preview-grid">
+          <div class="image-box">
+            <div class="sub">Cheque Preview</div>
+            <img id="cheque-preview" alt="Cheque preview" />
+          </div>
+          <div class="image-box">
+            <div class="sub">Decision Details</div>
+            <dl class="kv">
+              <div><dt>Cheque</dt><dd id="kv-image">-</dd></div>
+              <div><dt>Payee</dt><dd id="kv-payee">-</dd></div>
+              <div><dt>Account Number</dt><dd id="kv-account">-</dd></div>
+              <div><dt>Account Holder</dt><dd id="kv-holder">-</dd></div>
+              <div><dt>Cheque Amount</dt><dd id="kv-amount">-</dd></div>
+              <div><dt>Balance</dt><dd id="kv-balance">-</dd></div>
+              <div><dt>Expected Action</dt><dd id="kv-expected">-</dd></div>
+              <div><dt>Agent Action</dt><dd id="kv-action">-</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const statusEl = document.getElementById("status");
+    const testedFlagEl = document.getElementById("tested-flag");
+    const currentActionEl = document.getElementById("current-action");
+    const currentRewardEl = document.getElementById("current-reward");
+    const chequePreviewEl = document.getElementById("cheque-preview");
+
+    function setStatus(text) {
+      statusEl.textContent = text;
+    }
+
+    function formatMoney(value) {
+      if (value === null || value === undefined || value === "-") return "-";
+      return new Intl.NumberFormat("en-IN", {
+        style: "currency",
+        currency: "INR",
+        maximumFractionDigits: 2,
+      }).format(value);
+    }
+
+    function setDecisionClass(value) {
+      currentActionEl.className = "";
+      document.getElementById("kv-action").className = "";
+      const normalized = String(value || "").toLowerCase();
+      const cls = normalized === "approve" ? "decision-approve"
+        : normalized === "reject" ? "decision-reject"
+        : normalized === "flag" ? "decision-flag"
+        : "";
+      currentActionEl.classList.add(cls);
+      document.getElementById("kv-action").classList.add(cls);
+    }
+
+    function renderResult(result, previewUrl) {
+      testedFlagEl.textContent = result.tested ? "Yes" : "No";
+      currentActionEl.textContent = result.agent_action || "-";
+      currentRewardEl.textContent = Number(result.reward || 0).toFixed(2);
+      setDecisionClass(result.agent_action);
+
+      const info = result.info || {};
+      document.getElementById("signature-score").textContent = info.signature_score?.toFixed?.(3) ?? "-";
+      document.getElementById("fraud-score").textContent = info.fraud_score?.toFixed?.(2) ?? "-";
+      document.getElementById("account-valid").textContent = String(result.observation?.account_valid ?? "-");
+      document.getElementById("signature-valid").textContent = String(result.observation?.signature_valid ?? "-");
+      document.getElementById("kv-image").textContent = info.image_path || "-";
+      document.getElementById("kv-payee").textContent = info.payee_name || "-";
+      document.getElementById("kv-account").textContent = info.account_number || "-";
+      document.getElementById("kv-holder").textContent = info.account_name || "-";
+      document.getElementById("kv-amount").textContent = formatMoney(info.cheque_amount);
+      document.getElementById("kv-balance").textContent = formatMoney(info.account_balance);
+      document.getElementById("kv-expected").textContent = info.expected_action || "-";
+      document.getElementById("kv-action").textContent = result.agent_action || "-";
+
+      if (previewUrl) {
+        chequePreviewEl.src = previewUrl;
+        chequePreviewEl.style.display = "block";
+      } else {
+        chequePreviewEl.removeAttribute("src");
+        chequePreviewEl.style.display = "none";
+      }
+
+      setStatus(`Agent tested the cheque and returned ${result.agent_action} with reward ${Number(result.reward || 0).toFixed(2)}.`);
+    }
+
+    async function loadSamples() {
+      const response = await fetch("/samples");
+      const data = await response.json();
+      const container = document.getElementById("samples");
+      container.innerHTML = "";
+
+      data.samples
+        .filter(sample => sample.image_path.toLowerCase().includes("e:\\\\cheque"))
+        .forEach(sample => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "sample-btn";
+          button.innerHTML = `<strong>${sample.label}</strong><small>${sample.image_path}</small>`;
+          button.addEventListener("click", async () => {
+            setStatus(`Testing ${sample.label}...`);
+            const response = await fetch("/analyze", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                difficulty: "medium",
+                image_path: sample.image_path,
+                signature_path: sample.signature_path,
+              }),
+            });
+            const result = await response.json();
+            renderResult(result, null);
+            document.querySelector('#path-form input[name="image_path"]').value = sample.image_path;
+            document.querySelector('#path-form input[name="signature_path"]').value = sample.signature_path || "";
+          });
+          container.appendChild(button);
+        });
+    }
+
+    document.getElementById("path-form").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const form = new FormData(event.currentTarget);
+      const payload = Object.fromEntries(form.entries());
+      setStatus(`Testing cheque at ${payload.image_path}...`);
+      const response = await fetch("/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const result = await response.json();
+      renderResult(result, null);
+    });
+
+    document.getElementById("upload-form").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const form = new FormData(event.currentTarget);
+      setStatus("Uploading cheque files and running analysis...");
+      const response = await fetch("/analyze-upload", {
+        method: "POST",
+        body: form,
+      });
+      const result = await response.json();
+
+      const fileInput = event.currentTarget.querySelector('input[name="cheque_image"]');
+      const file = fileInput.files && fileInput.files[0];
+      const previewUrl = file ? URL.createObjectURL(file) : null;
+      renderResult(result, previewUrl);
+    });
+
+    loadSamples().catch(() => setStatus("Could not load preset cheque samples."));
+  </script>
+</body>
+</html>

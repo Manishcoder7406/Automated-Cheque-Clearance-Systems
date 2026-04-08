@@ -1,0 +1,26 @@
+name: bank-cheque-clearing-env
+version: "1.0"
+description: Multi-agent bank cheque fraud detection and clearing environment
+entrypoint: bank_env.server.environment:BankChequeClearingEnv
+observation_space:
+  cheque_id: str
+  difficulty: str
+  done: bool
+  final_decision: str
+  confidence: float
+  reward: float
+action_space:
+  cheque_image_path: str
+  signature_pdf_path: str
+  signature_paths: list[str]
+  difficulty: str
+tasks:
+  - name: easy
+    description: Valid cheque with all fields correct
+    reward_range: [0.8, 1.0]
+  - name: medium
+    description: Minor issues requiring detection
+    reward_range: [0.5, 0.8]
+  - name: hard
+    description: Fraud detection case
+    reward_range: [0.0, 1.0]

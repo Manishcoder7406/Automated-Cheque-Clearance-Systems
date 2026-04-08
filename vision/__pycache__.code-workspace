@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "../__pycache__"
+		},
+		{
+			"path": "../agent"
+		},
+		{
+			"path": "../data"
+		},
+		{
+			"path": "../frontend"
+		},
+		{
+			"path": "../tasks"
+		},
+		{
+			"path": "."
+		}
+	]
+}
