@@ -1,4 +1,4 @@
-# Automated-Cheque-Clearance
+# Automated-Cheque-Clearance-System
 
 ### *Multi-Agent Intelligence for Bank Cheque Fraud Detection*
 
@@ -6,7 +6,7 @@
 
 ## 📌 Overview
 
-**Automated-Cheque-Clearance** is an end-to-end AI-powered platform that automates bank cheque verification and fraud detection. The system uses a **multi-agent architecture** to perform OCR extraction, signature verification, account validation, balance checking, and final decision orchestration — all in real-time.
+**Automated-Cheque-Clearance-System** is an end-to-end AI-powered platform that automates bank cheque verification and fraud detection. The system uses a **multi-agent architecture** to perform OCR extraction, signature verification, account validation, balance checking, and final decision orchestration — all in real-time.
 
 > 🎯 **Built for:** Hackathons, Banking AI Demos, RL Research, Production Pilot Deployments
 
