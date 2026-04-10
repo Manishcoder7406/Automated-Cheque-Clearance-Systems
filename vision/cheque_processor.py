@@ -4,7 +4,7 @@ import random
 from pathlib import Path
 from typing import Any, Dict, Optional
 
-from bank_env.agents import (
+from agents import (
     AccountValidationAgent,
     BalanceBehaviorAgent,
     ChequeDataValidationAgent,

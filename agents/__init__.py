@@ -1,9 +1,9 @@
-from bank_env.agents.account_agent import AccountValidationAgent
-from bank_env.agents.balance_agent import BalanceBehaviorAgent
-from bank_env.agents.cheque_data_agent import ChequeDataValidationAgent
-from bank_env.agents.decision_agent import DecisionAgent
-from bank_env.agents.signature_agent import SignatureVerificationAgent
-from bank_env.agents.transfer_agent import InterbankTransferAgent
+from agents.account_agent import AccountValidationAgent
+from agents.balance_agent import BalanceBehaviorAgent
+from agents.cheque_data_agent import ChequeDataValidationAgent
+from agents.decision_agent import DecisionAgent
+from agents.signature_agent import SignatureVerificationAgent
+from agents.transfer_agent import InterbankTransferAgent
 
 __all__ = [
     "ChequeDataValidationAgent",

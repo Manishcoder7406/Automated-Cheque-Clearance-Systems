@@ -7,10 +7,10 @@ from statistics import mean
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from bank_env.server.environment import BankChequeClearingEnv
-from bank_env.tasks.easy import get_cases as get_easy_cases
-from bank_env.tasks.hard import get_cases as get_hard_cases
-from bank_env.tasks.medium import get_cases as get_medium_cases
+from server.environment import BankChequeClearingEnv
+from tasks.easy import get_cases as get_easy_cases
+from tasks.hard import get_cases as get_hard_cases
+from tasks.medium import get_cases as get_medium_cases
 
 
 def get_cases(difficulty: str) -> list[dict]:

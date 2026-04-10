@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from bank_env.models import Action, Observation
+from models import Action, Observation
 
 
 def derive_expected_action(observation: Observation) -> Action:

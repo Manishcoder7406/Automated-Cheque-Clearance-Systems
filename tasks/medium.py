@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from bank_env.server.mock_db import CHEQUE_DIR, EXTERNAL_CHEQUE_DIR
+from server.mock_db import CHEQUE_DIR, EXTERNAL_CHEQUE_DIR
 
 
 def get_cases() -> list[dict]:
