@@ -4,12 +4,12 @@ import random
 from pathlib import Path
 from typing import Any, Dict, Optional, Tuple
 
-from bank_env.models import Action, Observation, State
-from bank_env.reward import calculate_reward, derive_expected_action
-from bank_env.tasks.easy import get_cases as get_easy_cases
-from bank_env.tasks.hard import get_cases as get_hard_cases
-from bank_env.tasks.medium import get_cases as get_medium_cases
-from bank_env.vision.cheque_processor import ChequeProcessor
+from models import Action, Observation, State
+from reward import calculate_reward, derive_expected_action
+from tasks.easy import get_cases as get_easy_cases
+from tasks.hard import get_cases as get_hard_cases
+from tasks.medium import get_cases as get_medium_cases
+from vision.cheque_processor import ChequeProcessor
 
 
 class BankChequeClearingEnv:

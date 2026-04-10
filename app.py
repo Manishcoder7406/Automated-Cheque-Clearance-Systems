@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import sys
 import time
@@ -11,13 +11,13 @@ import streamlit as st
 if __package__ in (None, ""):
     sys.path.append(str(Path(__file__).resolve().parent.parent))
 
-from bank_env.server.environment import BankChequeClearingEnv
-from bank_env.vision.cheque_processor import ChequeProcessor
+from server.environment import BankChequeClearingEnv
+from vision.cheque_processor import ChequeProcessor
 
 PACKAGE_ROOT = Path(__file__).resolve().parent
 UPLOAD_DIR = PACKAGE_ROOT / "data" / "uploads"
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
-DATASET_PATH = Path(r"e:\cheque\cheque_data.xlsx")
+DATASET_PATH = PACKAGE_ROOT / "data" / "cheque_data.xlsx"
 
 env = BankChequeClearingEnv(seed=42)
 processor = ChequeProcessor(seed=42)

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from bank_env.models import Action
+from models import Action
 
 
 class BaselineChequeAgent:

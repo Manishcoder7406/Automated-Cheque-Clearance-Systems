@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any, Dict
 
-from bank_env.vision.signature_verifier import verify_signature
+from vision.signature_verifier import verify_signature
 
 
 class SignatureVerificationAgent:

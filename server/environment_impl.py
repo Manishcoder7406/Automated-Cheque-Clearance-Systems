@@ -7,16 +7,16 @@ from typing import Any, Dict, Optional
 import cv2
 import pandas as pd
 
-from bank_env.agents.agent1_cheque_validator import Agent1ChequeValidator
-from bank_env.agents.agent2_signature_verifier import Agent2SignatureVerifier
-from bank_env.agents.agent3_account_verifier import Agent3AccountVerifier
-from bank_env.agents.agent4_balance_behaviour import Agent4BalanceBehaviour
-from bank_env.agents.agent5_interbank_transfer import Agent5InterbankTransfer
-from bank_env.agents.agent6_orchestrator import Agent6Orchestrator
-from bank_env.tasks.easy import get_cases as get_easy_cases
-from bank_env.tasks.hard import get_cases as get_hard_cases
-from bank_env.tasks.medium import get_cases as get_medium_cases
-from bank_env.utils.extract_signatures import extract_signatures_from_pdf
+from agents.agent1_cheque_validator import Agent1ChequeValidator
+from agents.agent2_signature_verifier import Agent2SignatureVerifier
+from agents.agent3_account_verifier import Agent3AccountVerifier
+from agents.agent4_balance_behaviour import Agent4BalanceBehaviour
+from agents.agent5_interbank_transfer import Agent5InterbankTransfer
+from agents.agent6_orchestrator import Agent6Orchestrator
+from tasks.easy import get_cases as get_easy_cases
+from tasks.hard import get_cases as get_hard_cases
+from tasks.medium import get_cases as get_medium_cases
+from utils.extract_signatures import extract_signatures_from_pdf
 
 PACKAGE_ROOT = Path(__file__).resolve().parents[1]
 SIGNATURE_OUTPUT_DIR = PACKAGE_ROOT / "data" / "signatures"
