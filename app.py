@@ -594,7 +594,7 @@ def render_signature_comparison(result: Dict[str, Any]) -> None:
     with col1:
         st.markdown('<div class="sig-label extracted">🧾 Uploaded Cheque</div>', unsafe_allow_html=True)
         if cheque_path and Path(cheque_path).exists():
-            st.image(cheque_path, use_container_width=True)
+            st.image(cheque_path, use_column_width=True)
         else:
             st.info("Cheque image not available.")
 
@@ -611,7 +611,7 @@ def render_signature_comparison(result: Dict[str, Any]) -> None:
         display_name = Path(display_sig).name if display_sig else matched_name
         st.markdown(f'<div class="sig-label reference">📁 Stored Signature: {display_name}</div>', unsafe_allow_html=True)
         if display_sig and Path(display_sig).exists():
-            st.image(display_sig, use_container_width=True)
+            st.image(display_sig, use_column_width=True)
         else:
             st.info("No matching signature found in dataset.")
 
@@ -658,7 +658,7 @@ def render_cheque_preview(result: Dict[str, Any]) -> None:
     img_path = result.get("image_path", "")
     if img_path and Path(img_path).exists():
         st.markdown('<div class="cheque-frame">', unsafe_allow_html=True)
-        st.image(img_path, use_container_width=True, caption="Submitted Cheque Image")
+        st.image(img_path, use_column_width=True, caption="Submitted Cheque Image")
         st.markdown('</div>', unsafe_allow_html=True)
     else:
         st.warning("Cheque image not found on disk.")
